@@ -269,9 +269,9 @@ trvh gasmixture_multiply(unsigned int args_len, Value* args, Value src)
 trvh gasmixture_create_temperature_gradient(unsigned int args_len, Value* args, Value src)
 {
 	if(args_len < 3) {
-		return Value::Null();
+		return Value::False();
 	} else if(args[0].type != NUMBER || args[1].type != NUMBER || args[2].type != NUMBER) {
-		return Value::Null();
+		return Value::False();
 	} else if (get_gas_mixture(src)->create_temperature_gradient(args[0].valuef, args[1].valuef, args[2].valuef)) {
 		return Value::True();
 	} else {
