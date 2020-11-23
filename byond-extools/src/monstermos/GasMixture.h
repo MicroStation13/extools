@@ -59,9 +59,9 @@ class GasMixture
         float last_share = 0;
 		float min_heat_capacity = 0;
         bool immutable = false;
-        float gradient_coeff_a;
-        float gradient_coeff_b;
-        float gradient_coeff_c;
+        float gradient_coeff_a = 0;
+        float gradient_coeff_b = 0;
+        float gradient_coeff_c = 0;
 	// you might thing, "damn, all the gases, wont that use up more memory"?
 	// well no. Let's look at the average gas mixture in BYOND land containing both oxygen and nitrogen:
 	// gases (28+8 bytes)
