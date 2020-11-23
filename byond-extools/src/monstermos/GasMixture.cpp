@@ -210,3 +210,56 @@ void GasMixture::multiply(float multiplier) {
 		moles[i] *= multiplier;
 	}
 }
+
+/**
+ * Brief Explantation here since we're breaking the immutability of immutable gas mixes with this.
+ * Temperature gradients are kinda THE thing with planetary atmospherics,
+ * which should be simulated with immutable mixes.
+ * This set of functions aims to be an unobtrusive way to simulate this
+ * without breaking overall immutability for the composition, which is the tricky bit.
+ * Changes to this in the future should maintain this principle since
+ * (almost) anything else should probably just not use an immutable mix.
+ */
+
+/**
+ * @brief Sets the temperature gradient formula for the immutable gasmix
+ * Calculated using the following formula:
+ * T = -a * cos(b * sqrt(x)) + c
+ * @param a The Temperature osscilation range
+ * @param b The cosine coefficient
+ * @param c The Temperature floor
+ */
+
+bool GasMixture::create_temperature_gradient(
+    float a, float b, float c
+) {
+    if(immutable) {
+        if (c <= 0 || c <= (a < 0 ? -a : a)) {
+            return false;
+        } else {
+            gradient_coeff_a = a;
+            gradient_coeff_b = b;
+            gradient_coeff_c = c;
+            return true;
+        }
+    } else {
+        return false; // just use set_temperature directly
+    }
+}
+
+/**
+ * @brief Recalculates temperature based on the supplied step.
+ * 
+ * @param step a float value between 0.0 and 1.0
+ */
+
+void GasMixture::tick_temperature_gradient(float step) {
+    if (gradient_coeff_a == NULL || gradient_coeff_b == NULL || gradient_coeff_c == NULL) { return; }
+    int _step = step;
+    if (_step < 0.0f) {
+        _step = 0;
+    } else if (_step > 1.0f) {
+        _step = 1;
+    }
+    temperature = -gradient_coeff_a * std::cos(gradient_coeff_b * std::sqrt(step)) + gradient_coeff_c;
+}

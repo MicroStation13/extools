@@ -38,6 +38,8 @@ class GasMixture
 		int compare(GasMixture &sample) const;
 		void clear();
 		void multiply(float multiplier);
+        bool create_temperature_gradient(float a, float b, float c);
+        void tick_temperature_gradient(float step);
 
         inline float get_temperature() const { return temperature; }
         inline void set_temperature(float new_temp) { if(!immutable) temperature = new_temp; }
@@ -57,6 +59,9 @@ class GasMixture
         float last_share = 0;
 		float min_heat_capacity = 0;
         bool immutable = false;
+        float gradient_coeff_a;
+        float gradient_coeff_b;
+        float gradient_coeff_c;
 	// you might thing, "damn, all the gases, wont that use up more memory"?
 	// well no. Let's look at the average gas mixture in BYOND land containing both oxygen and nitrogen:
 	// gases (28+8 bytes)
