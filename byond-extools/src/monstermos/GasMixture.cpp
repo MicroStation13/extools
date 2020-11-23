@@ -254,7 +254,7 @@ bool GasMixture::create_temperature_gradient(
  */
 
 void GasMixture::tick_temperature_gradient(float step) {
-    if (gradient_coeff_a == NULL || gradient_coeff_b == NULL || gradient_coeff_c == NULL) { return; }
+    if (gradient_coeff_a == 0 || gradient_coeff_b == 0 || gradient_coeff_c == 0) { return; }
     int _step = step;
     if (_step < 0.0f) {
         _step = 0;
