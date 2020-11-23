@@ -224,7 +224,7 @@ void GasMixture::multiply(float multiplier) {
 /**
  * @brief Sets the temperature gradient formula for the immutable gasmix
  * Calculated using the following formula:
- * T = -a * cos(b * sqrt(x)) + c
+ * T = -a * cos(b * x) + c
  * @param a The Temperature osscilation range
  * @param b The cosine coefficient
  * @param c The Temperature floor
@@ -261,5 +261,5 @@ void GasMixture::tick_temperature_gradient(float step) {
     } else if (_step > 1.0f) {
         _step = 1;
     }
-    temperature = -gradient_coeff_a * std::cos(gradient_coeff_b * std::sqrt(step)) + gradient_coeff_c;
+    temperature = -gradient_coeff_a * std::cos(gradient_coeff_b * step) + gradient_coeff_c;
 }
