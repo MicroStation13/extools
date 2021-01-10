@@ -239,6 +239,12 @@ trvh gasmixture_mark_immutable(unsigned int args_len, Value* args, Value src)
 	return Value::Null();
 }
 
+trvh gas_mixture_mark_vacuum(unsigned int args_len, Value* args, Value src)
+{
+	get_gas_mixture(src)->mark_vacuum();
+	return Value::Null();
+}
+
 trvh gasmixture_clear(unsigned int args_len, Value* args, Value src)
 {
 	get_gas_mixture(src)->clear();
@@ -551,6 +557,7 @@ const char* enable_monstermos()
 	Core::get_proc("/datum/gas_mixture/proc/set_moles").hook(gasmixture_set_moles);
 	Core::get_proc("/datum/gas_mixture/proc/scrub_into").hook(gasmixture_scrub_into);
 	Core::get_proc("/datum/gas_mixture/proc/mark_immutable").hook(gasmixture_mark_immutable);
+	Core::get_proc("/datum/gas_mixture/proc/mark_vacuum").hook(gas_mixture_mark_vacuum);
 	Core::get_proc("/datum/gas_mixture/proc/clear").hook(gasmixture_clear);
 	Core::get_proc("/datum/gas_mixture/proc/multiply").hook(gasmixture_multiply);
 	Core::get_proc("/datum/gas_mixture/proc/create_temperature_gradient").hook(gasmixture_create_temperature_gradient);
