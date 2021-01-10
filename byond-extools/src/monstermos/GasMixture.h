@@ -15,6 +15,7 @@ class GasMixture
         GasMixture(float volume);
         void mark_immutable();
         inline bool is_immutable() const {return immutable;}
+        inline bool is_vacuum() const {return vacuum;}
 
         float heat_capacity() const;
         float heat_capacity_archived() const;
@@ -40,6 +41,7 @@ class GasMixture
 		void multiply(float multiplier);
         bool create_temperature_gradient(float a, float b, float c);
         void tick_temperature_gradient(float step);
+        void mark_vacuum();
 
         inline float get_temperature() const { return temperature; }
         inline void set_temperature(float new_temp) { if(!immutable) temperature = new_temp; }
@@ -59,6 +61,7 @@ class GasMixture
         float last_share = 0;
 		float min_heat_capacity = 0;
         bool immutable = false;
+        bool vacuum = false;
         float gradient_coeff_a = 0;
         float gradient_coeff_b = 0;
         float gradient_coeff_c = 0;
