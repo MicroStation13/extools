@@ -98,7 +98,7 @@ GasMixture GasMixture::remove_ratio(float ratio) {
 }
 
 void GasMixture::copy_from_mutable(const GasMixture &sample) {
-    if(immutable) return;
+    if(immutable || vacuum) return;
     memcpy(moles, sample.moles, sizeof(moles));
     temperature = sample.temperature;
 }
@@ -262,4 +262,8 @@ void GasMixture::tick_temperature_gradient(float step) {
         _step = 1;
     }
     temperature = -gradient_coeff_a * std::cos(gradient_coeff_b * step) + gradient_coeff_c;
+}
+
+void GasMixture::mark_vacuum() {
+    vacuum = true;
 }

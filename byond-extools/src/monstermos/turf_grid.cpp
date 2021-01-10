@@ -352,7 +352,7 @@ void Tile::equalize_pressure_in_zone(int cyclenum) {
 			}
 			adj->monstermos_info->last_queue_cycle = queue_cycle;
 			turfs.push_back(adj);
-			if (adj->air->is_immutable() && adj->air->total_moles() == 0) {
+			if (adj->air->is_immutable() && adj->air->is_vacuum()) {
 				// Uh oh! looks like someone opened an airlock to space! TIME TO SUCK ALL THE AIR OUT!!!
 				// NOT ONE OF YOU IS GONNA SURVIVE THIS
 				// (I just made explosions less laggy, you're welcome)
