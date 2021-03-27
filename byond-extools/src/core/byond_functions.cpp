@@ -1,5 +1,6 @@
 #include "byond_functions.h"
 
+ExecuteInstructionPtr ExecuteInstruction;
 CrashProcPtr CrashProc;
 SuspendPtr Suspend;
 StartTimingPtr StartTiming;

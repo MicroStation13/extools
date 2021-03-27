@@ -104,6 +104,7 @@ bool Core::initialize()
 	}
 	initialized = verify_compat() && find_functions() && populate_proc_list() && hook_custom_opcodes();
 	//Core::codecov_executed_procs.resize(Core::get_all_procs().size());
+	Logging::Init();
 	return initialized;
 }
 
@@ -111,8 +112,9 @@ void Core::Alert(const std::string& what) {
 #ifdef _WIN32
 	MessageBoxA(NULL, what.c_str(), "Ouch!", MB_OK);
 #else
-	printf("Ouch!: %s\n", what.c_str());
+	//printf("Ouch!: %s\n", what.c_str());
 #endif
+	Logging::Warning("Alert", "Ouch!: "+what);
 }
 
 void Core::Alert(int what)

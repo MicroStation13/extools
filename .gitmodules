@@ -1,0 +1,12 @@
+[submodule "byond-extools/LuaJIT"]
+	path = LuaJIT
+	url = https://github.com/LuaJIT/LuaJIT.git
+[submodule "lanes"]
+	path = lanes
+	url = https://github.com/LuaLanes/lanes.git
+[submodule "lc53"]
+	path = lc53
+	url = https://github.com/keplerproject/lua-compat-5.3
+[submodule "LuaJIT"]
+	path = LuaJIT
+	url = https://github.com/LuaJIT/LuaJIT
