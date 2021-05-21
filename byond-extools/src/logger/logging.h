@@ -14,7 +14,7 @@ enum LogLevel {
 	LOGLEVEL_FATAL
 };
 
-#define LOGGING_MINLEVEL LOGLEVEL_INFO
+#define LOGGING_MINLEVEL LOGLEVEL_DEBUG
 
 typedef void (*LoggingOutput)(std::string provider, std::string message, LogLevel level);
 
