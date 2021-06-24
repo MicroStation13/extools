@@ -1,6 +1,6 @@
 #include "core.h"
 
-extern "C" EXPORT const char* enable_profiling(int n_args, const char** args)
+/*extern "C" EXPORT const char* enable_profiling(int n_args, const char** args)
 {
 	Core::initialize() && Core::enable_profiling();
 	return Core::SUCCESS;
@@ -10,7 +10,7 @@ extern "C" EXPORT const char* disable_profiling(int n_args, const char** args)
 {
 	Core::initialize() && Core::disable_profiling();
 	return Core::SUCCESS;
-}
+}*/
 
 extern "C" EXPORT const char* core_initialize(int n_args, const char** args)
 {
