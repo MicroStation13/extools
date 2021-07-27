@@ -91,17 +91,17 @@ namespace Core
 	extern std::map<unsigned int, opcode_handler> opcode_handlers;
 	extern std::map<std::string, unsigned int> name_to_opcode;
 	extern ExecutionContext** current_execution_context_ptr;
-	//extern ExecutionContext** parent_context_ptr_hack;
+	extern ExecutionContext** parent_context_ptr_hack;
 	extern MiscEntry** misc_entry_table;
-	//extern unsigned int* some_flags_including_profile;
+	extern unsigned int* some_flags_including_profile;
 	extern unsigned int* name_table_id_ptr;
 	extern unsigned int* name_table;
-	/*extern Value* global_var_table;
+	extern Value* global_var_table;
 	extern TableHolder2* obj_table;
 	extern TableHolder2* datum_table;
 	extern TableHolder2* list_table; //list list honk
 	extern TableHolder2* mob_table;
-	extern SuspendedProcList* suspended_proc_list;*/
+	extern SuspendedProcList* suspended_proc_list;
 
 	extern RawDatum*** datum_pointer_table;
 	extern unsigned int* datum_pointer_table_length;
@@ -110,8 +110,8 @@ namespace Core
 	extern unsigned int* datum_pointer_table_length;
 
 	extern std::unordered_map<std::string, Value*> global_direct_cache;
-	/*void global_direct_set(std::string name, Value val);
-	Value global_direct_get(std::string name);*/
+	void global_direct_set(std::string name, Value val);
+	Value global_direct_get(std::string name);
 
 
 	//extern std::vector<bool> codecov_executed_procs;
@@ -124,7 +124,7 @@ namespace Core
 	Value get_turf(int x, int y, int z);
 	extern unsigned int extended_profiling_insanely_hacky_check_if_its_a_new_call_or_resume;
 	ExecutionContext* get_context();
-	//ExecutionContext* _get_parent_context();
+	ExecutionContext* _get_parent_context();
 	unsigned int register_opcode(std::string name, opcode_handler handler);
 	void Alert(const std::string& what);
 	void Alert(int what);
@@ -133,8 +133,8 @@ namespace Core
 	Value get_stack_value(unsigned int which);
 	void stack_pop(unsigned int how_many);
 	void stack_push(Value val);
-	/*bool enable_profiling();
-	bool disable_profiling();*/
+	bool enable_profiling();
+	bool disable_profiling();
 	std::string type_to_text(unsigned int type);
 	std::string stringify(Value val);
 	void disconnect_client(unsigned int id);

@@ -29,11 +29,11 @@ void tffi_suspend(ExecutionContext* ctx)
 bool TFFI::initialize()
 {
 	// the CrashProc hook is currently super broken on Linux. It hooks but doesn't stop the crash.
-//# //ifdef _WIN32
+#ifdef _WIN32
 	std::uint32_t suspension_opcode = Core::register_opcode("TFFI_SUSPEND", tffi_suspend);
 	Core::Proc& internal_resolve = Core::get_proc("/datum/promise/proc/__internal_resolve");
 	internal_resolve.set_bytecode({ suspension_opcode, 0, 0, 0 });
-//# //endif
+#endif
 	result_string_id = Core::GetStringId("result");
 	completed_string_id = Core::GetStringId("completed");
 	internal_id_string_id = Core::GetStringId("__id");

@@ -1,3 +1,0 @@
-local conveyor = {}
-
-return conveyor

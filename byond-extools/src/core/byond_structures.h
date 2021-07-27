@@ -363,45 +363,18 @@ struct ExecutionContext
 	char unknown8[51];
 };
 
-struct ProcBytecode
-{
-	std::uint16_t length;
-	std::uint32_t** ppBytecode;
-};
-
-struct BytecodeEntry_V1
+struct BytecodeEntry
 {
 	std::uint16_t bytecode_length;
 	std::uint32_t* bytecode;
 	std::uint32_t unknown;
 };
 
-struct BytecodeEntry_V2
-{
-	std::uint16_t bytecode_length;
-	std::uint32_t unknown;
-	std::uint32_t* bytecode;
-};
-
-struct LocalVars
-{
-	std::uint16_t count;
-	std::uint32_t* var_name_indices;
-};
-
-struct LocalVarsEntry_V1
+struct LocalVarsEntry
 {
 	std::uint16_t count;
 	std::uint32_t* var_name_indices;
 	std::uint32_t unknown;
-};
-
-
-struct LocalVarsEntry_V2
-{
-	std::uint16_t count;
-	std::uint32_t unknown;
-	std::uint32_t* var_name_indices;
 };
 
 struct ParamsData
@@ -412,13 +385,7 @@ struct ParamsData
 	uint32_t unk_2;
 };
 
-struct Params
-{
-	std::uint16_t count;
-	ParamsData* params;
-};
-
-struct ParamsEntry_V1
+struct ParamsEntry
 {
 	std::uint16_t params_count_mul_4;
 	ParamsData* params;
@@ -430,34 +397,14 @@ struct ParamsEntry_V1
 	}
 };
 
-struct ParamsEntry_V2
-{
-	std::uint16_t params_count_mul_4;
-	std::uint32_t unknown;
-	ParamsData* params;
-
-	std::uint16_t count()
-	{
-		return params_count_mul_4 / 4;
-	}
-};
-
 struct MiscEntry
 {
-private:
 	union
 	{
-		ParamsEntry_V1 parameters1;
-		ParamsEntry_V2 parameters2;
-		LocalVarsEntry_V1 local_vars1;
-		LocalVarsEntry_V2 local_vars2;
-		BytecodeEntry_V1 bytecode1;
-		BytecodeEntry_V2 bytecode2;
+		ParamsEntry parameters;
+		LocalVarsEntry local_vars;
+		BytecodeEntry bytecode;
 	};
-public:
-	Params as_params();
-	LocalVars as_locals();
-	ProcBytecode as_bytecode();
 };
 
 struct ProfileEntry
@@ -519,11 +466,11 @@ struct TableHolderThingy
 	unsigned int* elements; //?????
 };
 
-/*struct TableHolder2
+struct TableHolder2
 {
 	void** elements;
 	unsigned int length;
-};*/
+};
 
 struct VarListEntry;
 
@@ -597,10 +544,10 @@ struct VarListEntry
 	trvh value;
 };
 
-/*struct SuspendedProcList
+struct SuspendedProcList
 {
 	ProcConstants** buffer;
 	std::uint32_t front;
 	std::uint32_t back;
 	std::uint32_t max_elements;
-};*/
+};

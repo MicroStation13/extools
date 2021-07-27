@@ -1,7 +1,6 @@
 #pragma once
 
 #include <unordered_map>
-#include <string>
 #include "../core/byond_constants.h"
 
 // Opaque declaration and additional constants for the most important values,

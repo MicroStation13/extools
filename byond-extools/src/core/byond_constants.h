@@ -3,9 +3,6 @@
 #include <cstdint>
 #include <string>
 
-// Commented out stuff isn't supported in 514.
-// Still there because I don't want to catostrophically break anything.
-
 enum DataType : uint8_t
 {
 	NULL_D = 0x00,
@@ -24,17 +21,17 @@ enum DataType : uint8_t
 	WORLD_D = 0x0E,
 	LIST = 0x0F,
 	LIST_ARGS = 0x10,
-	//LIST_MOB_VERBS = 0x11,
+	LIST_MOB_VERBS = 0x11,
 	LIST_VERBS = 0x12,
-	/*LIST_TURF_VERBS = 0x13,
+	LIST_TURF_VERBS = 0x13,
 	LIST_AREA_VERBS = 0x14,
 	LIST_CLIENT_VERBS = 0x15,
 	LIST_SAVEFILE_DIR = 0x16,
-	LIST_MOB_CONTENTS = 0x17,*/
+	LIST_MOB_CONTENTS = 0x17,
 	LIST_TURF_CONTENTS = 0x18,
-	//LIST_AREA_CONTENTS = 0x19,
+	LIST_AREA_CONTENTS = 0x19,
 	LIST_WORLD_CONTENTS = 0x1A,
-	//LIST_GROUP = 0x1B,
+	LIST_GROUP = 0x1B,
 	LIST_CONTENTS = 0x1C,
 	DATUM_TYPEPATH = 0x20,
 	DATUM = 0x21,
@@ -47,7 +44,7 @@ enum DataType : uint8_t
 	NUMBER = 0x2A,
 	LIST_MOB_VARS = 0x2C,
 	LIST_OBJ_VARS = 0x2D,
-	/*LIST_TURF_VARS = 0x2E,
+	LIST_TURF_VARS = 0x2E,
 	LIST_AREA_VARS = 0x2F,
 	LIST_CLIENT_VARS = 0x30,
 	LIST_VARS = 0x31, //maybe?
@@ -58,10 +55,10 @@ enum DataType : uint8_t
 	LIST_TURF_OVERLAYS = 0x36,
 	LIST_TURF_UNDERLAYS = 0x37,
 	LIST_AREA_OVERLAYS = 0x38,
-	LIST_AREA_UNDERLAYS = 0x39,*/
+	LIST_AREA_UNDERLAYS = 0x39,
 	APPEARANCE = 0x3A,
 	CLIENT_TYPEPATH = 0x3B,
-	/*IMAGE_TYPEPATH = 0x3F,
+	IMAGE_TYPEPATH = 0x3F,
 	LIST_IMAGE_OVERLAYS = 0x40,
 	LIST_IMAGE_UNDERLAYS = 0x41,
 	LIST_IMAGE_VARS = 0x42,
@@ -75,9 +72,8 @@ enum DataType : uint8_t
 	LIST_TURF_VIS_LOCS = 0x4E,
 	LIST_VIS_LOCS = 0x4F,
 	LIST_MOB_VIS_LOCS = 0x50,
-	LIST_WORLD_VARS = 0x51,*/
-	LIST_VARS = 0x31, //probably
+	LIST_WORLD_VARS = 0x51,
 	LIST_GLOBAL_VARS = 0x52,
-	/*FILTERS = 0x53,
-	LIST_IMAGE_VIS_CONTENTS = 0x54,*/
+	FILTERS = 0x53,
+	LIST_IMAGE_VIS_CONTENTS = 0x54,
 };
