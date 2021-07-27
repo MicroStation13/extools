@@ -1,10 +1,6 @@
 #include "logging.h"
 #include <ctime>
 #include <cstring>
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 bool LogsInit = false;
 std::vector<LoggingOutput> logout;
 
@@ -21,15 +17,7 @@ std::string pt_levels[5] = {
 };
 
 #ifdef _WIN32
-char lcolors[6] = {
-	FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
-	FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_BLUE,
-	FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_RED,
-	FOREGROUND_INTENSITY | FOREGROUND_RED,
-	FOREGROUND_INTENSITY | FOREGROUND_RED | BACKGROUND_RED | BACKGROUND_GREEN,
-	FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
-};
-HANDLE console_h;
+auto levels = pt_levels;
 #else
 const char * levels[5] = {
 	"DEBUG",
@@ -48,20 +36,9 @@ char * get_ts() {
 	return ts;
 }
 
-#ifdef _WIN32
-void log_tty_w32(std::string provider, std::string message, LogLevel level) {
-	printf("[%s] [", get_ts());
-	//FlushConsoleInputBuffer(console_h); // not sure if i need this, blame stackoverflow
-	SetConsoleTextAttribute(console_h, lcolors[level]);
-	printf(pt_levels[level].c_str());
-	SetConsoleTextAttribute(console_h, lcolors[5]); // yes
-	printf("] [%s] %s\n", provider.c_str(), message.c_str());
-}
-#else
 void log_tty(std::string provider, std::string message, LogLevel level) {
 	printf("[%s] [%s] [%s] %s\n", get_ts(), levels[level], provider.c_str(), message.c_str());
 }
-#endif
 
 void log_world(std::string provider, std::string message, LogLevel level) {
 	std::string msg = "[";
@@ -101,35 +78,30 @@ trvh dm_log(unsigned int args_len, Value* args, Value src) {
 	if (args[0].type != DataType::STRING or args[1].type != DataType::STRING)
 		Runtime("Expected string");
 	Logging::Log(args[0], args[1]);
-	return Value::Null();
 }
 
 trvh dm_debug(unsigned int args_len, Value* args, Value src) {
 	if (args[0].type != DataType::STRING or args[1].type != DataType::STRING)
 		Runtime("Expected string");
 	Logging::Debug(args[0], args[1]);
-	return Value::Null();
 }
 
 trvh dm_warning(unsigned int args_len, Value* args, Value src) {
 	if (args[0].type != DataType::STRING or args[1].type != DataType::STRING)
 		Runtime("Expected string");
 	Logging::Warning(args[0], args[1]);
-	return Value::Null();
 }
 
 trvh dm_error(unsigned int args_len, Value* args, Value src) {
 	if (args[0].type != DataType::STRING or args[1].type != DataType::STRING)
 		Runtime("Expected string");
 	Logging::Error(args[0], args[1]);
-	return Value::Null();
 }
 
 trvh dm_fatal(unsigned int args_len, Value* args, Value src) {
 	if (args[0].type != DataType::STRING or args[1].type != DataType::STRING)
 		Runtime("Expected string");
 	Logging::Fatal(args[0], args[1]);
-	return Value::Null();
 }
 
 void l_try_hook(std::string proc, ProcHook hook) {
@@ -141,23 +113,13 @@ void l_try_hook(std::string proc, ProcHook hook) {
 	}
 }
 
-
-
 void Logging::Init() {
 	logfile = fopen("luatools.log", "a");
 	fprintf(logfile, "\n=============================================================\n");
 	fprintf(logfile, "                  Luatools logging started                   \n");
 	fprintf(logfile, "=============================================================\n");
 	#ifdef _WIN32
-	//AddOutput(log_world);
-	AllocConsole();
-	ShowWindow(GetConsoleWindow(), SW_SHOW);
-	SetWindowTextA(GetConsoleWindow(), "Luatools Logging");
-	console_h = GetStdHandle(STD_OUTPUT_HANDLE);
-	freopen("CONIN$", "r", stdin); 
-	freopen("CONOUT$", "w", stdout); 
-	freopen("CONOUT$", "w", stderr); 
-	AddOutput(log_tty_w32);
+	AddOutput(log_world);
 	#else
 	AddOutput(log_tty);
 	#endif
