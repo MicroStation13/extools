@@ -4,6 +4,7 @@
 #include "byond_functions.h"
 #include "hooking.h"
 #include "proc_management.h"
+#include "../logger/logging.h"
 #ifndef _WIN32
 #include <dlfcn.h>
 #endif

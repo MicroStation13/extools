@@ -1,4 +1,7 @@
-
+*.dll
+*.so
+*.a
+*.exe
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles

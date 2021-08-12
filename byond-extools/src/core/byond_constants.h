@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstdint>
+#include <string>
+
 enum DataType : uint8_t
 {
 	NULL_D = 0x00,

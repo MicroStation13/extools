@@ -82,13 +82,22 @@ std::unordered_map<std::string, Value> Value::get_all_vars()
 
 bool Value::has_var(std::string name)
 {
-	Value v = name;
-	Value vars = get("vars");
-	return IsInContainer(v.type, v.value, vars.type, vars.value);
-	/*int name_str_id = Core::GetStringId(name); //good night sweet prince
+	// Value v = name;
+	//Value vars = get("vars");
+	// if (vars == Value::Null()) return false; // because this can fail, apparently.
+	// return IsInContainer(v.type, v.value, vars.type, vars.value); // this just doesn't work
+	int name_str_id = Core::GetStringId(name); //good night sweet prince
 	Container contents = get("vars");
 	int left = 0;
 	int right = contents.length() - 1;
+	while (left <= right) {
+		Value val = contents.at(left);
+		if (val.value == name_str_id) {
+			return true;
+		}
+		left = left+1;
+	}
+	/*
 	while (left <= right)
 	{
 		int mid = (left + right) / 2;
@@ -107,8 +116,8 @@ bool Value::has_var(std::string name)
 		{
 			right = mid - 1;
 		}
-	}
-	return false;*/
+	}*/
+	return false;
 }
 
 void Value::set(std::string name, Value newvalue)
